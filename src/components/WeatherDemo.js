@@ -17,6 +17,7 @@ import {
 	ToolkitsProvider,
 	useAgentExecutor,
 } from '@automattic/big-sky-agents';
+import withChat from './withChat';
 
 const SingleAssistantDemoUI = () => {
 	useAgentExecutor();
@@ -98,4 +99,4 @@ const DemoWeatherAgent = ({ apiKey }) => {
 	);
 };
 
-export default DemoWeatherAgent;
+export default withChat(DemoWeatherAgent);

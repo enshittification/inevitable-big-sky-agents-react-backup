@@ -1,13 +1,19 @@
 import { Panel, TabPanel } from '@wordpress/components';
 import WeatherDemo from './components/WeatherDemo';
 import SiteSpecDemo from './components/SiteSpecDemo';
+import AskUserDemo from './components/AskUserDemo';
 import MinimalDemo from './components/MinimalDemo';
+
 import './App.scss';
 
 const tabs = [
 	{
 		name: 'minimal-demo',
 		title: 'Minimal Demo',
+	},
+	{
+		name: 'ask-user-demo',
+		title: 'Ask User Demo',
 	},
 	{
 		name: 'weather-demo',
@@ -28,6 +34,9 @@ function App() {
 					<div>
 						{name === 'minimal-demo' && (
 							<MinimalDemo apiKey={OPENAI_API_KEY} />
+						)}
+						{name === 'ask-user-demo' && (
+							<AskUserDemo apiKey={OPENAI_API_KEY} />
 						)}
 						{name === 'weather-demo' && (
 							<WeatherDemo apiKey={OPENAI_API_KEY} />
