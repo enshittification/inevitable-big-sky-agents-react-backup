@@ -8,6 +8,7 @@
 import {
 	AgentsProvider,
 	AgentUI,
+	AskUserToolkit,
 	ChatHistory,
 	ChatModelService,
 	ChatModelType,
@@ -15,11 +16,9 @@ import {
 	PopUpControls,
 	ToolkitsProvider,
 	useAgentExecutor,
-	useAgentToolkit,
 } from '@automattic/big-sky-agents';
 
 const SingleAssistantDemoUI = () => {
-	useAgentToolkit();
 	useAgentExecutor();
 
 	return (
@@ -67,7 +66,7 @@ const WeatherAgent = {
 	name: 'WeatherBot',
 	description: 'Looks up the weather for you',
 	instructions: 'You are a helpful weather bot',
-	toolkits: ['agents', 'weather'],
+	toolkits: [AskUserToolkit.name, GetWeatherToolkit.name],
 	onStart: (invoke) => {
 		invoke.askUser({
 			question: 'What location would you like the weather for?',
@@ -83,13 +82,8 @@ const WeatherAgent = {
 
 const DemoWeatherAgent = ({ apiKey }) => {
 	return (
-		<ToolkitsProvider toolkits={[GetWeatherToolkit]}>
-			<AgentsProvider
-				goal="Help the user find out about the weather"
-				thought="I am going to help the user find out about the weather"
-				activeAgentId="weatherbot"
-				agents={[WeatherAgent]}
-			>
+		<ToolkitsProvider toolkits={[GetWeatherToolkit, AskUserToolkit]}>
+			<AgentsProvider activeAgentId="weatherbot" agents={[WeatherAgent]}>
 				<ChatProvider
 					service={ChatModelService.OPENAI}
 					model={ChatModelType.GPT_4O}
