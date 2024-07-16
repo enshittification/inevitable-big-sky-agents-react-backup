@@ -7,31 +7,19 @@
  */
 import {
 	ChatHistory,
-	ChatModelService,
-	ChatModelType,
 	MessageContent,
 	PopUpControls,
 	useAgent,
 	useAgentExecutor,
 	useChat,
-	useChatSettings,
 	UserMessageInput,
 } from '@automattic/big-sky-agents';
-import withChat from './withChat';
+import withDemoChat from './withDemoChat';
 
-const MinimalDemoUI = ({ apiKey }) => {
-	useChatSettings({
-		apiKey,
-		feature: 'big-sky',
-		service: ChatModelService.OPENAI,
-		model: ChatModelType.GPT_4O,
-	});
+const MinimalDemoUI = () => {
 	useAgent(MinimalAgent);
 	useAgentExecutor();
-
 	const { assistantMessage } = useChat();
-
-	console.warn('assistantMessage', assistantMessage);
 
 	return (
 		<>
@@ -57,4 +45,4 @@ const MinimalAgent = {
 	},
 };
 
-export default withChat(MinimalDemoUI);
+export default withDemoChat(MinimalDemoUI);

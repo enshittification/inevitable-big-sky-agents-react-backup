@@ -20,7 +20,7 @@ import {
 	useChatSettings,
 	UserMessageInput,
 } from '@automattic/big-sky-agents';
-import withChat from './withChat';
+import withDemoChat from './withDemoChat';
 
 const AskUserDemoUI = ({ apiKey }) => {
 	console.warn('rendering with api key', apiKey);
@@ -75,4 +75,4 @@ const ConversationAgent = {
 	},
 };
 
-export default withChat(AskUserDemoUI);
+export default withDemoChat(AskUserDemoUI);
