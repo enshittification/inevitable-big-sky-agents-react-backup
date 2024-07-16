@@ -8,8 +8,9 @@ import {
 	PopUpControls,
 	useAgentExecutor,
 	useAgents,
-	useAgentToolkit,
+	useAgentsToolkit,
 	useChatSettings,
+	useGoalToolkit,
 	useSiteToolkit,
 } from '@automattic/big-sky-agents';
 
@@ -18,8 +19,9 @@ const DemoSiteSpecAgent = ({ apiKey }) => {
 		apiKey,
 		feature: 'big-sky',
 	});
-	useAgentToolkit();
+	useAgentsToolkit();
 	useSiteToolkit({});
+	useGoalToolkit();
 	useAgentExecutor();
 	const { setActiveAgent } = useAgents();
 	// set the initial agent

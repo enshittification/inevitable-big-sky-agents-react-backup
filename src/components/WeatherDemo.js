@@ -8,18 +8,15 @@
 import {
 	AgentsProvider,
 	AgentUI,
+	AskUserToolkit,
 	ChatHistory,
-	ChatModelService,
-	ChatModelType,
-	ChatProvider,
 	PopUpControls,
 	ToolkitsProvider,
 	useAgentExecutor,
-	useAgentToolkit,
 } from '@automattic/big-sky-agents';
+import withChat from './withChat';
 
 const SingleAssistantDemoUI = () => {
-	useAgentToolkit();
 	useAgentExecutor();
 
 	return (
@@ -48,7 +45,7 @@ const GetWeatherTool = {
 const GetWeatherToolkit = {
 	name: 'weather',
 	context: {
-		exampleValue: 'foo',
+		currentLocation: 'Oslo, Norway',
 	},
 	tools: [GetWeatherTool],
 	callbacks: {
@@ -66,8 +63,9 @@ const WeatherAgent = {
 	id: 'weatherbot',
 	name: 'WeatherBot',
 	description: 'Looks up the weather for you',
-	instructions: 'You are a helpful weather bot',
-	toolkits: ['agents', 'weather'],
+	instructions: (context) =>
+		`Look up the weather for a location. The current location is ${context.currentLocation}.`,
+	toolkits: [AskUserToolkit.name, GetWeatherToolkit.name],
 	onStart: (invoke) => {
 		invoke.askUser({
 			question: 'What location would you like the weather for?',
@@ -81,27 +79,14 @@ const WeatherAgent = {
 	},
 };
 
-const DemoWeatherAgent = ({ apiKey }) => {
+const DemoWeatherAgent = () => {
 	return (
-		<ToolkitsProvider toolkits={[GetWeatherToolkit]}>
-			<AgentsProvider
-				goal="Help the user find out about the weather"
-				thought="I am going to help the user find out about the weather"
-				activeAgentId="weatherbot"
-				agents={[WeatherAgent]}
-			>
-				<ChatProvider
-					service={ChatModelService.OPENAI}
-					model={ChatModelType.GPT_4O}
-					apiKey={apiKey}
-					feature={'big-sky'}
-					assistantEnabled={false}
-				>
-					<SingleAssistantDemoUI />
-				</ChatProvider>
+		<ToolkitsProvider toolkits={[GetWeatherToolkit, AskUserToolkit]}>
+			<AgentsProvider activeAgentId="weatherbot" agents={[WeatherAgent]}>
+				<SingleAssistantDemoUI />
 			</AgentsProvider>
 		</ToolkitsProvider>
 	);
 };
 
-export default DemoWeatherAgent;
+export default withChat(DemoWeatherAgent);
