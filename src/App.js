@@ -3,6 +3,7 @@ import WeatherDemo from './components/WeatherDemo';
 import SiteSpecDemo from './components/SiteSpecDemo';
 import AskUserDemo from './components/AskUserDemo';
 import MinimalDemo from './components/MinimalDemo';
+import MinimalDemoWithWeather from './components/MinimalDemoWithWeather';
 
 import './App.scss';
 
@@ -10,6 +11,10 @@ const tabs = [
 	{
 		name: 'minimal-demo',
 		title: 'Minimal Demo',
+	},
+	{
+		name: 'minimal-demo-with-weather',
+		title: 'Minimal with Weather',
 	},
 	{
 		name: 'ask-user-demo',
@@ -34,6 +39,9 @@ function App() {
 					<div>
 						{name === 'minimal-demo' && (
 							<MinimalDemo apiKey={OPENAI_API_KEY} />
+						)}
+						{name === 'minimal-demo-with-weather' && (
+							<MinimalDemoWithWeather apiKey={OPENAI_API_KEY} />
 						)}
 						{name === 'ask-user-demo' && (
 							<AskUserDemo apiKey={OPENAI_API_KEY} />

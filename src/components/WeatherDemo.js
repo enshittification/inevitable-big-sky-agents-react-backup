@@ -10,9 +10,6 @@ import {
 	AgentUI,
 	AskUserToolkit,
 	ChatHistory,
-	ChatModelService,
-	ChatModelType,
-	ChatProvider,
 	PopUpControls,
 	ToolkitsProvider,
 	useAgentExecutor,
@@ -48,7 +45,7 @@ const GetWeatherTool = {
 const GetWeatherToolkit = {
 	name: 'weather',
 	context: {
-		exampleValue: 'foo',
+		currentLocation: 'Oslo, Norway',
 	},
 	tools: [GetWeatherTool],
 	callbacks: {
@@ -66,7 +63,8 @@ const WeatherAgent = {
 	id: 'weatherbot',
 	name: 'WeatherBot',
 	description: 'Looks up the weather for you',
-	instructions: 'You are a helpful weather bot',
+	instructions: (context) =>
+		`Look up the weather for a location. The current location is ${context.currentLocation}.`,
 	toolkits: [AskUserToolkit.name, GetWeatherToolkit.name],
 	onStart: (invoke) => {
 		invoke.askUser({
@@ -81,19 +79,11 @@ const WeatherAgent = {
 	},
 };
 
-const DemoWeatherAgent = ({ apiKey }) => {
+const DemoWeatherAgent = () => {
 	return (
 		<ToolkitsProvider toolkits={[GetWeatherToolkit, AskUserToolkit]}>
 			<AgentsProvider activeAgentId="weatherbot" agents={[WeatherAgent]}>
-				<ChatProvider
-					service={ChatModelService.OPENAI}
-					model={ChatModelType.GPT_4O}
-					apiKey={apiKey}
-					feature={'big-sky'}
-					assistantEnabled={false}
-				>
-					<SingleAssistantDemoUI />
-				</ChatProvider>
+				<SingleAssistantDemoUI />
 			</AgentsProvider>
 		</ToolkitsProvider>
 	);

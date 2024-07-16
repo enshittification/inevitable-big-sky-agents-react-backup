@@ -9,27 +9,17 @@ import {
 	AskUserComponent,
 	AskUserToolkit,
 	ChatHistory,
-	ChatModelService,
-	ChatModelType,
 	MessageContent,
 	PopUpControls,
 	useAgent,
 	useAgentExecutor,
 	useAskUserToolkit,
 	useChat,
-	useChatSettings,
 	UserMessageInput,
 } from '@automattic/big-sky-agents';
 import withDemoChat from './withDemoChat';
 
-const AskUserDemoUI = ({ apiKey }) => {
-	console.warn('rendering with api key', apiKey);
-	useChatSettings({
-		apiKey,
-		feature: 'big-sky',
-		service: ChatModelService.OPENAI,
-		model: ChatModelType.GPT_4O,
-	});
+const AskUserDemoUI = () => {
 	useAgent(ConversationAgent);
 	useAskUserToolkit();
 	useAgentExecutor();
