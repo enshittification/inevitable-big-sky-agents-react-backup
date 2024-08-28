@@ -1,7 +1,5 @@
-//@import "~@automattic/big-sky-agents/dist/style.css";
-
-// symlinked from: '@wordpress/components/build-style/style.css';
-@import "./wordpress-components-style.css";
+@import "wordpress-components-style.css";
+@import "big-sky-agents-style.css";
 
 body {
 	margin: 0;

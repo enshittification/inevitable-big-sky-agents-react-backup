@@ -4,7 +4,7 @@
   "private": true,
   "license": "GPL-2.0-or-later",
   "dependencies": {
-    "@automattic/big-sky-agents": "^1.1.34",
+    "@automattic/big-sky-agents": "^1.1.61",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -12,7 +12,8 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sass": "^1.77.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.94.0"
   },
   "scripts": {
     "start": "craco start",
